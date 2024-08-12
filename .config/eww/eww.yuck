@@ -1,6 +1,6 @@
 (defwindow bar0
     :monitor 0
-    :geometry (geometry :x "0%" :y "8px" :width "98%" :height "10px" :anchor "top center")
+    :geometry (geometry :x "0%" :y "1%" :width "99%" :height "1%" :anchor "top center")
     :stacking "bg"
     :exclusive true
     :windowtype "dock"
@@ -9,7 +9,7 @@
 
 (defwindow bar1
     :monitor 1
-    :geometry (geometry :x "0%" :y "10px" :width "131%" :height "20px" :anchor "top center")
+    :geometry (geometry :x "0%" :y "1%" :width "99%" :height "2%" :anchor "top center")
     :stacking "bg"
     :exclusive true
     :windowtype "dock"
@@ -18,15 +18,15 @@
 
 (defwidget bar_layout0 []
     (centerbox :class "layout-box" :orientation "h"
-        (center)
         (workspaces0)
+        (center)
         (right)
     )
 )
 (defwidget bar_layout1 []
     (centerbox :class "layout-box" :orientation "h"
-        (center)
         (workspaces1)
+        (center)
         (right)
     )
 )
