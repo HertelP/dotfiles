@@ -1,3 +1,4 @@
 .config/nvim
 .config/chromium
 .config/tmux/plugins
+.config/dconf
