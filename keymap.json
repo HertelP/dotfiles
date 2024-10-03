@@ -1,46 +1,52 @@
 {   "version": 1,
-    "notes": "HertelP Keymap",
+    "notes": {
+        "author":"HertelP Keymap",
+        "setup": "qmk flash -c -kb **keyboard** -km **keymap** -e CONVERT_TO=promicro_rp2040"
+    },
     "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
     "keyboard": "ferris/0_1",
     "keymap": "default",
     "layout": "LAYOUT_split_3x5_2",
     "layers": [
-        ["KC_J"        , "KC_L"        , "KC_U"           , "KC_Z"          , "S(KC_COMM)",
-         "KC_B"        , "KC_P"        , "KC_F"           , "KC_W"          , "KC_Q",
+        [
+        "KC_Q", "KC_W", "KC_F", "KC_P", "KC_B",
+        "KC_J"        , "KC_L"        , "KC_U"           , "KC_Z"          , "S(KC_COMM)",
 
+         "LSFT_T(KC_A)", "LCTL_T(KC_R)" , "LGUI_T(KC_S)"     ,   "LALT_T(KC_T)"  ,"KC_G"        ,
          "KC_M", "RALT_T(KC_N)"  , "RGUI_T(KC_E)"     , "RCTL_T(KC_I)"    , "RSFT_T(KC_O)",
-         "KC_G"        , "LALT_T(KC_T)"  , "LGUI_T(KC_S)"     , "LCTL_T(KC_R)"    , "LSFT_T(KC_A)",
 
+         "KC_X", "KC_C","KC_D" , "KC_V",       "KC_Y"        ,
          "KC_K"        , "KC_H", "KC_COMM"   , "KC_DOT"          , "RSFT_T(S(KC_MINS))",
-         "KC_Y"        , "KC_V"        , "KC_D", "KC_C", "KC_X",
 
-         "KC_SPC"       , "LT(2,KC_ENT)",
-         "KC_BSPC", "LT(1,KC_ESC)"
+         "LT(1,KC_ESC)","KC_BSPC",
+         "KC_SPC"       , "LT(2,KC_ENT)"
         ],
-        ["KC_6"     , "RALT_T(KC_7)"     , "RGUI_T(KC_8)"        , "RCTL_T(KC_9)"       , "RSFT_T(KC_0)",
-        "KC_5"     , "LALT_T(KC_4)"     , "LGUI_T(KC_3)"        , "LCTL_T(KC_2)"       , "LSFT_T(KC_1)",
+        [
+        "LSFT_T(KC_1)", "LCTL_T(KC_2)" , "LGUI_T(KC_3)"        ,      "LALT_T(KC_4)"     ,"KC_5"     ,
+            "KC_6"     , "RALT_T(KC_7)"     , "RGUI_T(KC_8)"        , "RCTL_T(KC_9)"       , "RSFT_T(KC_0)",
 
+         "S(KC_2)", "KC_NUBS" , "ALGR(KC_5)"          ,      "ALGR(KC_8)"     ,"S(KC_8)"     ,
          "S(KC_9)"     , "ALGR(KC_9)"     , "ALGR(KC_6)"          , "S(KC_NUBS)"       , "S(KC_SLSH)",
-         "S(KC_8)"     , "ALGR(KC_8)"     , "ALGR(KC_5)"          , "KC_NUBS"       , "S(KC_2)",
 
+         "KC_NUHS", "S(KC_NUHS)" , "S(KC_DOT)"          ,      "ALGR(KC_7)"     ,"S(KC_NUHS)"     ,
          "S(KC_0)"     , "S(KC_RBRC)"     , "S(KC_7)"          , "KC_RBRC"       , "KC_SLSH",
-         "S(KC_NUHS)"     , "ALGR(KC_7)"     , "S(KC_DOT)"          , "S(KC_NUHS)"       , "KC_NUHS",
 
-         "KC_SPC"     , "KC_TAB",
-         "KC_MS_L"     , "KC_NO"
+          "KC_NO","KC_MS_L"     ,
+         "KC_SPC"     , "KC_TAB"
         ],
-        ["KC_GRV"     , "LSFT(KC_GRV)"     , "KC_LBRC"        , "KC_TRNS"       , "KC_TRNS",
-         "LSFT(KC_EQL)"     , "ALGR(KC_N)"     , "KC_QUOT"        , "KC_SCLN"       , "KC_SCLN",
+        [
+         "KC_SCLN", "KC_SCLN" , "KC_QUOT"        ,      "ALGR(KC_N)"     ,"LSFT(KC_EQL)"     ,
+            "KC_GRV"     , "LSFT(KC_GRV)"     , "KC_LBRC"        , "KC_TRNS"       , "KC_TRNS",
 
+         "KC_QUOT", "KC_DOWN" , "KC_UP"          ,"KC_RGHT"     ,"KC_TRNS"     ,
          "KC_TRNS"     , "KC_LEFT"       , "KC_DOWN"        , "KC_UP"       , "KC_RGHT",
-         "KC_TRNS"     , "KC_RGHT"     , "KC_UP"          , "KC_DOWN" , "KC_QUOT",
 
+         "LSFT_T(KC_TRNS)", "LCTL_T(KC_TRNS)" , "LGUI_T(KC_TRNS)"        ,      "LALT_T(KC_TRNS)"     ,"KC_TRNS"     ,
          "KC_TRNS"     , "RALT_T(KC_TRNS)"     , "RGUI_T(KC_TRNS)"        , "RCTL_T(KC_TRNS)"        , "RSFT_T(KC_TRNS)",
-         "KC_TRNS"     , "LALT_T(KC_TRNS)"     , "LGUI_T(KC_TRNS)"        , "LCTL_T(KC_TRNS)"       , "LSFT_T(KC_TRNS)",
 
          "KC_TRNS"     , "KC_TRNS",
          "KC_TRNS"     , "KC_TRNS"
         ]
-    ],
-    "author": "@HertelP"
+    ]
 }
+
