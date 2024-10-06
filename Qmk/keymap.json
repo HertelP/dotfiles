@@ -33,7 +33,7 @@
         ],
         [
          "KC_SCLN", "KC_SCLN" , "KC_QUOT"        ,      "ALGR(KC_N)"     ,"LSFT(KC_EQL)"     ,
-            "KC_GRV"     , "LSFT(KC_GRV)"     , "KC_LBRC"        , "KC_TRNS"       , "KC_TRNS",
+            "KC_GRV"     , "LSFT(KC_GRV)"     , "KC_LBRC"        , "KC_TRNS"       , "KC_BSLS",
 
          "KC_QUOT", "KC_DOWN" , "KC_UP"          ,"KC_RGHT"     ,"KC_TRNS"     ,
          "KC_TRNS"     , "KC_LEFT"       , "KC_DOWN"        , "KC_UP"       , "KC_RGHT",

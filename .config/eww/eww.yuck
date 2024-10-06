@@ -1,117 +1,115 @@
-(defwindow bar0
-    :monitor 0
-    :geometry (geometry :x "0%" :y "1%" :width "99%" :height "1%" :anchor "top center")
-    :stacking "bg"
-    :exclusive true
-    :windowtype "dock"
-    (bar_layout0)
-)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Variable Section's							 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defpoll memory :interval "15s" `printf $(free -m | grep Speicher: | awk '{print ($3/$2)*100}')`)
+(defpoll mem-ad-total :interval "30s" `printf  $(free -m | grep Speicher: | awk '{print $2}' )`)
+(defpoll mem-ad-used :interval "30s" `printf  $(free -m | grep Speicher: | awk '{print $3}' )`)
+(defpoll mem-ad-free :interval "30s" `printf  $(free -m | grep Speicher: | awk '{print ($2 - $3)}' )`)
+(defpoll COL_WLAN :interval "1m" "~/.config/eww/scripts/wifi.sh --COL")
+(defpoll ESSID_WLAN :interval "1m" "~/.config/eww/scripts/wifi.sh --ESSID")
+(defpoll WLAN_ICON :interval "1m" "~/.config/eww/scripts/wifi.sh --ICON")
+(defpoll clock_time :interval "5m" "date +\%H")
+(defpoll clock_minute :interval "5s" "date +\%M")
+(defpoll clock_date :interval "10h" "date '+%d/%m'")
+(defpoll calendar_day :interval "20h" "date '+%d'")
+(defpoll calendar_year :interval "20h" "date '+%Y'")
+(defpoll brightness_percent :interval "5s" "brightnessctl -m -d amdgpu_bl1 | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'")
+(defpoll volume_percent :interval "3s" "amixer -D pulse sget Master | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+(deflisten workspace "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`")
 
-(defwindow bar1
-    :monitor 1
-    :geometry (geometry :x "0%" :y "1%" :width "99%" :height "2%" :anchor "top center")
-    :stacking "bg"
-    :exclusive true
-    :windowtype "dock"
-    (bar_layout1)
-)
+(defvar wifi_rev false)
+(defvar time_rev false)
+(defvar br_reveal false)
+(defvar vol_reveal false)
+(defvar music_reveal false)
 
-(defwidget bar_layout0 []
-    (centerbox :class "layout-box" :orientation "h"
-        (workspaces0)
-        (center)
-        (right)
-    )
-)
-(defwidget bar_layout1 []
-    (centerbox :class "layout-box" :orientation "h"
-        (workspaces1)
-        (center)
-        (right)
-    )
-)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Widget Section's							 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defwidget sep []
+  (box :class "module-2" :vexpand "false" :hexpand "false"
+    (label :class "separ" :text "|")))
 
-(deflisten workspace0 "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`")
-(deflisten workspace1 "hyprland-workspaces `hyprctl monitors -j | jq -r \".[1].name\"`")
-
-(defpoll net :interval "10s"
-    :initial `N/A`
-    `nmcli -t -f SIGNAL,ACTIVE device wifi \
-        | awk -F':' '{if($2 == "ja")print $1}'`
-)
-
-(defpoll time :interval "1s"
-    :initial `date +'{"hour":"%H","min":"%M"}'`
-    `date +'{"hour":"%H","min":"%M"}'`
-)
-
-(defpoll date :interval "1m"
-    :initial `date +'{"day":"%d","month":"%m","year":"%Y"}'`
-    `date +'{"day":"%d","month":"%m","year":"%Y"}'`
-)
-
-(defwidget center []
-    (box :class "center-box" :orientation "h" :space-evenly false :halign "center"
-        (label :text ".")
-    )
-)
-
-(defwidget right []
-    (box :class "right-box" :orientation "h" :space-evenly false :halign "end"
-        (_network :strength net :offline "󰤯" :excellent "󰤨" :good "󰤥" :okay "󰤢" :slow "󰤟")
-        (label :class "date-icon" :text "󰃭")
-        (label :class "date-box" :text "${date.day}/${date.month}/${date.year}")
-        (label :class "clock-box" :text "󰥔")
-        (label :class "time-box" :text "${time.hour}:${time.min}")
-        (_battery :status {EWW_BATTERY.BAT0.status} :battery {EWW_BATTERY.BAT0.capacity}
-         :one "󰁹" :two "󰂂" :three "󰂀" :four "󰁾" :five "󰁼" :six "󰁺" :seven "󰂃" :charge "󰂄"
+(defwidget clock_module []
+  (eventbox :onhover "eww update time_rev=true"
+			  :onhoverlost "eww update time_rev=false"
+    (box :class "module" :space-evenly "false" :orientation "h" :spacing "0" 
+      (label :text clock_time :class "clock_time_class" )
+      (label :text ":" :class "clock_time_sep" )
+      (label :text clock_minute :class "clock_minute_class")
+	  (revealer :transition "slideleft"
+			  :reveal time_rev
+			  :duration "350ms"
+      (button :class "clock_date_class"
+             :onclick "$HOME/.config/eww/scripts/pop.sh calendar" clock_date
         )
-        (label :class "percent-box" :text "${EWW_BATTERY.BAT0.capacity}%")
-        (_shutdown :shutdown "poweroff" :shutdown_icon "")
+  ))))
+(defwidget wifi [] 
+    (eventbox :onhover "eww update wifi_rev=true" :onhoverlost "eww update wifi_rev=false"
+		(box :vexpand "false" :hexpand "false" :space-evenly "false"
+			(button :class "module-wif" :style "color: ${COL_WLAN};" WLAN_ICON)
+	        (revealer :transition "slideright" :reveal wifi_rev :duration "350ms" (label :class "module_essid" :text ESSID_WLAN ))
+        )
     )
 )
-(defwidget _network [strength offline excellent good okay slow]
-    (box    :class "net-box"
-            :space-evenly false
-            :spacing 8
-            (label :text {strength == "" ? offline :
-                strength <26 ? slow :
-                    strength <51 ? okay :
-                        strength <76 ? good : excellent}
+(defwidget bat [status]
+		(box :class "bat_module" :vexpand "false" :hexpand "false" 
+            (circular-progress :value {EWW_BATTERY.BAT0.capacity}
+                :class "batbar"
+                :thickness 4
+            (button 
+                :class "iconbat"
+                :onclick "scripts/pop.sh system"    
+                :tooltip "battery on ${EWW_BATTERY.BAT0.capacity}%"
+                {(status != "Charging" && EWW_BATTERY.BAT0.capacity < 15) ? "󰠠": "󰄯"}
             )
-    )
+            )
+        )
+)
+(defwidget mem []
+		(box :class "mem_module" :vexpand "false" :hexpand "false" 
+            (circular-progress :value memory
+                :class "membar"
+                :thickness 4
+            (button 
+                :class "iconmem"
+                :onclick "scripts/pop.sh system"    
+                :tooltip "using ${memory}% ram"
+                "󰄯"
+            )
+            )
+        )
 )
 
-(defwidget _shutdown [shutdown shutdown_icon]
-    (box    :class "logout-box"
-            :space-evenly false
-            :spacing 8
-            (button :onclick shutdown shutdown_icon)
-    )
-)
+(defwidget bright []
+  (eventbox :onhover "eww update br_reveal=true" :onhoverlost "eww update br_reveal=false"
+  (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3" 
+    (label :text "" :class "bright_icon" :tooltip "brightness")
+	(revealer :transition "slideleft"
+			  :reveal br_reveal
+			  :duration "350ms"
+	(scale    :class "brightbar"
+			  :value brightness_percent
+			  :orientation "h"
+			  :tooltip "${brightness_percent}%"
+			  :max 100
+			  :min 5
+	 		  :onchange "brightnessctl set {}%" )))))
 
-(defwidget _battery [battery status one two three four five six seven charge]
-    (box    :class "bat-box"
-            :space-evenly false
-            :spacing 8
-            (label :text  {status == "Charging" ? charge :
-                battery < 15 ? seven :
-                    battery < 38 ? six :
-                        battery < 45 ? five :
-                            battery < 60 ? four :
-                                battery < 75 ? three :
-                                    battery < 95 ? two : one}
-            )
-    )
-)
+(defwidget volume []
+  (eventbox :onhover "eww update vol_reveal=true"
+			  :onhoverlost "eww update vol_reveal=false"
+  (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3" 
+	(button :onclick "scripts/pop.sh audio" :class "volume_icon" (image :path "~/.config/eww/images/speaker.png")))))
 
 (defwidget workspaces0 []
   (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
     (box :class "workspaces" :orintation "h" :space-evenly true :halign "start"
-      (for i in workspace0
+      (for i in workspace
         (button
           :onclick "hyprctl dispatch workspace ${i.id}"
-          :class "_workspace_btn"
+          :class "workspace_btn"
           (label :text {i.active ? "" : ""})
         )
       )
@@ -119,16 +117,156 @@
   )
 )
 
-(defwidget workspaces1 []
-  (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
-   (box :class "workspaces" :orintation "h" :space-evenly true :halign "start"
-      (for i in workspace1
-        (button
-          :onclick "hyprctl dispatch workspace ${i.id}"
-          :class "_workspace_btn"
-          (label :text {i.active ? "" : ""})
+(defwidget arch []
+		(box :class "arch_mod" :vexpand "false" :hexpand "false" 
+            (button 
+                :class "arch"
+                "󰣇"
+            )
         )
-      )
-    )
-  )
 )
+
+(defwidget left []
+    (box :orientation "h" :space-evenly false :halign "end" :class "left_modules" (bright) (volume) (wifi) (sep)(bat  :status {EWW_BATTERY.BAT0.status}) (mem) (sep) (clock_module))
+)
+(defwidget middle []
+    (box :orientation "h" :space-evenly false :halign "center" :class "right_modules" (workspaces0))
+)
+(defwidget right []
+    (box :orientation "h" :space-evenly false :halign "start" :class "right_modules" (arch))
+)
+(defwidget bar1 []
+    (box :class "bar_class" :orientation "h" (right) (middle) (left))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Window Section's							 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defwindow bar
+    :monitor 0
+	:geometry (geometry :x "0%"
+						:y "10px"
+						:anchor "top center"
+						:height "30px"
+						:width "98%")
+    :stacking "fg"
+    :exclusive true
+	(bar1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Popup Section's							     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defwidget cal []
+	(box :class "cal" :orientation "v"
+	(box :class "cal-in"
+	(calendar :class "cal" 
+			  :day calendar_day 
+			  :year calendar_year))))
+
+(defwindow calendar
+    :monitor 0
+	:geometry (geometry :x "1%" 
+						:y "2%" 
+                        :anchor "top right"
+						:width "270px" 
+						:height "60px")
+(cal))
+
+(defwidget audio []
+	(box :class "audio-box" :orientation "v" :space-evenly "false" :vexpand "false" :hexpand "false"
+	(box :halign "start" :space-evenly "false" :hexpand "false" :vexpand "false"
+	(box :class "speaker_icon")
+	(box :orientation "v" :halign "center" :vexpand "false" :hexpand "false"
+    (label :class "speaker_text" :text "speaker" :valign "center" :halign "start" )
+	(box :class "speaker_bar" :halign "start" :vexpand "false" :hexpand "false"
+	(scale    :value volume_percent
+			  :orientation "h"
+			  :onchange "amixer -D pulse sset Master {}%" 
+              :tooltip "volume on ${volume_percent}%"
+			  :max 100
+			  :min 0))))
+    (label :text "" :class "audio_sep" :halign "center")
+	(box :halign "start" :space-evenly "false" :hexpand "false" :vexpand "false"
+	(box :class "mic_icon" :orientation "v")
+	(box :orientation "v" :halign "start" :vexpand "false" :hexpand "false"
+    (label :class "mic_text" :text "mic" :valign "center" :halign "start" )
+	(box :class "mic_bar" :halign "center" :vexpand "false" :hexpand "false"
+	(scale    :value mic_percent
+			  :orientation "h"
+              :tooltip "mic on ${mic_percent}%"
+			  :onchange "amixer -D pulse sset Capture {}%" 
+			  :max 100
+			  :min 0))))))
+
+(defwindow audio_ctl
+    :monitor 0
+	:geometry (geometry :x "8%" 
+						:y "2%" 
+                        :anchor "top right"
+						:width "180px" 
+						:height "50px")
+(audio))
+
+(defwidget system []
+  (box :class "sys_win" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 0
+  (box :class "sys_bat_box" :orientation "h" :space-evenly "false"
+      (circular-progress :value {EWW_BATTERY.BAT0.capacity}
+                :class "sys_bat"
+                :thickness 9
+            (label :text "⏻"
+                :class "sys_icon_bat"
+                :limit-width 2
+                :wrap false))
+            (box :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false"
+            (label :text "battery"
+                :halign "start"
+                :class "sys_text_bat"
+                :limit-width 9
+                :wrap false)
+            (label :text "${EWW_BATTERY.BAT0.capacity}%"
+                :halign "start"
+                :class "sys_text_bat_sub"
+                :limit-width 22
+                :wrap false)
+            (label :text "${EWW_BATTERY.BAT0.status}"
+                :halign "start"
+                :class "sys_text_bat_sub"
+                :limit-width 22
+                :wrap false)))
+            (label :text "" :class "sys_sep" :halign "center")
+  (box :class "sys_mem_box" :orientation "h" :space-evenly "false" :halign "start"
+      (circular-progress :value memory
+                :class "sys_mem"
+                :thickness 9
+            (label :text ""
+                :class "sys_icon_mem"
+                :limit-width 2
+                :wrap false
+                :angle 0.0))
+            (box :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false"
+            (label :text "memory"
+                :halign "start"
+                :class "sys_text_mem"
+                :limit-width 9
+                :wrap false)
+            (label :text "${mem-ad-used}mb/${mem-ad-total}mb "
+                :halign "start"
+                :class "sys_text_mem_sub"
+                :limit-width 22
+                :wrap false)
+            (label :text "${mem-ad-free}mb free"
+                :halign "start"
+                :class "sys_text_mem_sub"
+                :limit-width 22
+                :wrap false)))))
+
+(defwindow system
+    :monitor 0
+	:geometry (geometry :x "20px" 
+						:y "2%" 
+                        :anchor "top right"
+						:width "290px" 
+						:height "120px")
+(system))
+

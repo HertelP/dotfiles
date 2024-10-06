@@ -1,71 +1,355 @@
-@import '/home/philipp/.cache/wal/colors.scss';
-
-//* {
- // all: unset; //Unsets everything so you can style everything from scratch
-//}
-$background: rgba(#1e1e2e, 0.10);
-$backgroundsolid: rgba(#1e1e1e, 0.0);
-$foreground: $foreground;
-
-* { all: unset; }
-
-.layout-box {
-  font-family: FiraCode Nerd Font;
-  font-weight: 500;
-  background-color: $background;
-  border-radius: 50px;
-  color: $foreground;
-}
-.right-box {
-  background-color: $backgroundsolid;
-  padding-right: 20px;
-  padding-left: 20px;
-  border-radius: 50px;
+/*
+@import '/home/HertelP/.cache/wal/colors.scss';
+* {
+  all: unset;
 }
 
-.net-box{
-    margin-right: 35px;
-    font-size: 22px;
+// Variable Color's
+$background: #0d0f18;
+$foreground: #a5b6cf;
+
+
+*/
+//catppuccin colors
+$rosewater: #f5e0dc;
+$mauve: #cba6f7;
+$maroon: #e0b089;
+$green: #afbea2;
+$sky: #89dceb;
+$lavender: #b4befe;
+$magenta: #c296eb;
+$offwhite: #cdd6f4;
+
+*{
+	all: unset;
+	font-family: FiraCode Nerd Font;
 }
-.bat-box{
-    margin-right: 5px;
-    font-size: 22px;
+
+/** General **/
+.bar_class {
+    background-color: #0f0f17;
+    border-radius: 16px;
 }
-.percent-box{
-    margin-top: 3px;
-    margin-right: 25px;
-    font-size: 16px;
+.module {
+    margin: 0px 0px 0px 0px;
+    border-radius: 10px 16px 0px 10px;
 }
-.clock-box{
-    margin-right: 10px;
+
+/** tooltip!! **/
+tooltip.background {
+    background-color: #0f0f17;
+    font-size: 18;
+    border-radius: 10px;
+    color: #bfc9db;
+}
+
+tooltip label {
+    margin: 6px;
+}
+
+
+/** Widgets **/
+
+.clock_time_sep {
+    font-size: 20;
+    color: #bfc9db;
+    margin: 0px 3px 1px 3px;
+}
+.clock_time_class, .clock_minute_class {
+    font-size: 23;
+}
+.clock_date_class {
+    font-size: 18;
+    margin-right: 20px;
+    color: $lavender;
+}
+.clock_minute_class {
+    margin: 0px 20px 0px 0px;
+    color: #bfc9db;
+}
+
+.clock_time_class {
+    color: #bfc9db;
+}
+
+
+.membar {
+  color: $maroon;
+    background-color: #38384d;
+  border-radius: 10px;
+}
+.batbar {
+  color: $green;
+  background-color: #38384d;
+  border-radius: 10px;
+}
+.brightbar trough highlight {
+  background-image: linear-gradient(to right, #e4c9af 30%, #f2cdcd 50%, #e0b089 100% *50);
+  border-radius: 10px;
+}
+.volbar trough highlight {
+  background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+  border-radius: 10px;
+}
+.volume_icon {
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('images/speaker.png');
+	background-position: center;
+	min-height: 30px;
+	min-width: 40px;
+	margin: 8px 10px 8px 10px;
+	border-radius: 10px;
+}
+
+/** WIFI **/
+.module_essid {
+    font-size: 18;
+    color: $lavender;
+    margin: 0px 10px 0px 0px;
+}
+.module-wif {
     font-size: 22;
+    color: $lavender;
+    border-radius: 100%;
+    margin: 0px 18px 0px 5px;
 }
-.time-box{
-    margin-top: 3px;
-    margin-right: 20px;
-    font-size: 16px;
+
+.iconmem {
+    color: $maroon;
 }
-.logout-box{
-    font-size: 20px;
+.iconbat {
+    color: $green;
 }
-.date-box{
-    margin-top: 3px;
-    margin-right: 20px;
-    font-size: 16px;
+.iconbat, .iconmem {
+    font-size: 12;
+    margin: 8px 12px 8px 10px;
 }
-.date-icon{
-    margin-right: 8px;
+.bright_icon {
+    font-size: 25;
+    color: $rosewater;
+    margin: 0px 18px 0px 10px;
+}
+
+
+.separ {
+    color: #3e424f;
+    font-weight: bold;
     font-size: 22px;
+    margin: 2px 8px 0px 8px;
+  }
+
+.mem_module {
+    background-color: #0f0f17;
+	border-radius: 16px;
+    margin: 0px 10px 0px 3px;
 }
-._workspace_btn{
-    label {
-      margin-left:5px;
-      font-size: 28px;
+.bat_module {
+    background-color: #0f0f17;
+	border-radius: 16px;
+    margin: 6px 10px 6px 10px;
+  }
+
+
+scale trough {
+  all: unset;
+  background-color: #22242b;
+  box-shadow: 0 2px 3px 2px #06060b;
+  border-radius: 16px;
+  min-height: 10px;
+  min-width: 70px;
+  margin: 0px 10px 0px 0px;
+}
+
+// Workspaces
+.workspaces {
+  font-size: 30px;
+  font-weight: normal;
+  color: $offwhite;
+  margin: 2px 0px 0px 0px;
+  background-color: #0f0f17;
+}
+
+.workspace_btn {
+  margin: 0px 8px 0px 8px;
+  background-color: #0f0f17;
+}
+
+//Arch
+.arch {
+  font-size: 28px;
+  margin: 2px 0px 0px 20px; 
+  color: $sky;
+}
+// Calendar
+.cal {
+  background-color: #0f0f17;
+  font-family: FiraCode Nerd Font;
+  font-size: 18px;
+  font-weight: normal;
+  border-radius: 20px;
+
+.cal-in {
+    padding: 0px 10px 0px 10px;
+    color: #bfc9db;
+
+.cal {
+     &.highlight {
+          padding: 20px;
+      }
+      padding: 5px 8px 8px 8px;
+      margin-left: 10px;
     }
+  }
 }
-.workspaces{
-  background-color: $backgroundsolid;
-  padding-right: 20px;
-  padding-left: 15px;
-  border-radius: 50px;
+
+calender {
+    color: #bfc9db;
 }
+calendar:selected {
+  color: #e0b089;
+}
+
+calendar.header {
+  color: #a1bdce;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: #afbea2;
+}
+
+calendar.highlight {
+  color: #a1bdce;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: #bfc9db;
+}
+
+
+// System tray
+.sys_sep {
+    color: #38384d;
+    font-size: 18;
+    margin: 0px 10px 0px 10px;
+}
+.sys_text_bat_sub, .sys_text_mem_sub {
+    font-size: 16;
+    color: $offwhite;
+    margin: 5px 0px 0px 25px;
+}
+.sys_text_bat, .sys_text_mem {
+    font-size: 21;
+    font-weight: bold;
+    margin: 14px 0px 0px 25px;
+}
+.sys_icon_bat, .sys_icon_mem {
+    font-size: 25;
+    margin: 28px 30px 30px 26px;
+}
+.sys_win {
+    background-color: #0f0f17;
+    border-radius: 20px;
+}
+.sys_bat {
+  color: $green;
+  background-color: #38384d;
+  border-radius: 10px;
+}
+.sys_mem {
+  color: $maroon;
+  background-color: #38384d;
+  border-radius: 10px;
+}
+.sys_icon_bat, .sys_text_bat {
+    color: $green;
+}
+.sys_icon_mem, .sys_text_mem {
+    color: $maroon;
+}
+.sys_bat_box {
+	border-radius: 16px;
+    margin: 15px 10px 10px 20px;
+  }
+.sys_mem_box {
+	border-radius: 16px;
+    margin: 0px 10px 15px 20px;
+}
+
+//Audio tray
+.audio-box {
+    background-color: #0f0f17;
+	border-radius: 20px;
+}
+.speaker_icon {
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('images/speaker.png');
+	background-position: center;
+	min-height: 2px;
+	min-width: 40px;
+	margin: 25px 10px 20px 15px;
+	border-radius: 12px;
+}
+
+.speaker_text {
+	color: #a1bdce;
+	font-size : 18px;
+	margin: 20px 10px 0px 0px;
+}
+
+.speaker_bar scale trough highlight {
+	all: unset;
+    background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+	border-radius: 24px;
+}
+.speaker_bar scale trough {
+	all: unset;
+	background-color: #232232;
+    box-shadow: 0 6px 5px 2px #06060b;
+	border-radius: 24px;
+	min-height: 14px;
+	min-width: 100px;
+	margin : 0px 0px 5px 0px;
+}
+
+.mic_icon {
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('images/mic.png');
+	background-position: center;
+	min-height: 2px;
+	min-width: 40px;
+	margin: 15px 10px 20px 15px;
+	border-radius: 12px;
+}
+
+.mic_text {
+	color: #a1bdce;
+	font-size : 18px;
+	margin: 0px 0px 0px 0px;
+}
+
+.mic_bar scale trough highlight {
+	all: unset;
+    background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+	border-radius: 24px;
+}
+.mic_bar scale trough {
+	all: unset;
+    box-shadow: 0 6px 5px 2px #06060b;
+	background-color: #232232;
+	border-radius: 24px;
+	min-height: 13px;
+	min-width: 100px;
+	margin : 0px 0px 20px 0px;
+}
+
+.audio_sep {
+    color: #38384d;
+    font-size: 18;
+	margin : 0px 0px 0px 0px;
+}
+
