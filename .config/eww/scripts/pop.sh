@@ -1,10 +1,12 @@
 #!/bin/bash
 
+monitor=$(hyprctl activewindow | grep 'monitor' | awk '{print $2}')
+
 calendar() {
 LOCK_FILE="$HOME/.cache/eww-calendar.lock"
 
 run() {
-    eww -c $HOME/.config/eww open calendar
+    eww -c $HOME/.config/eww open --screen "$monitor" calendar
 }
 
 # Open widgets
@@ -22,7 +24,7 @@ audio() {
 LOCK_FILE_AUDIO="$HOME/.cache/eww-audio.lock"
 
 run() {
-    eww -c $HOME/.config/eww open audio_ctl 
+    eww -c $HOME/.config/eww open --screen "$monitor" audio_ctl 
 }
 
 # Open widgets
@@ -40,7 +42,7 @@ system() {
 LOCK_FILE_MEM="$HOME/.cache/eww-system.lock"
 
 run() {
-    eww -c $HOME/.config/eww open system 
+    eww -c $HOME/.config/eww open --screen "$monitor" system 
 }
 
 # Open widgets
@@ -58,7 +60,7 @@ sidebar() {
 LOCK_FILE_SIDE="$HOME/.cache/eww-sidebar.lock"
 
 run() {
-    eww -c $HOME/.config/eww open sidebar 
+    eww -c $HOME/.config/eww open --screen "$monitor" sidebar 
 }
 
 # Open widgets
