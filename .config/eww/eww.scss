@@ -179,7 +179,7 @@ scale trough {
 .arch {
   font-size: 28px;
   margin: 2px 0px 0px 20px; 
-  color: $sky;
+  color: $lavender;
 }
 // Calendar
 .cal {
@@ -353,3 +353,14 @@ calendar:indeterminate {
 	margin : 0px 0px 0px 0px;
 }
 
+//Sidebar
+.poweroff_icon, .lock_icon {
+    font-size: 35;
+    margin: 28px 30px 30px 26px;
+}
+.poweroff_icon, .poweroff_text {
+    color: $green;
+}
+.lock_icon, .lock_text {
+    color: $maroon;
+}
