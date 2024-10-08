@@ -102,7 +102,7 @@
   (eventbox :onhover "eww update vol_reveal=true"
 			  :onhoverlost "eww update vol_reveal=false"
   (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3" 
-	(button :onclick "scripts/pop.sh audio" :class "volume_icon" (image :path "images/speaker.png" :preserve-aspect-ratio true :image-width "34" :image-height "34")))))
+	(button :onclick "scripts/pop.sh audio" :class "volume_icon" (image :path "images/speaker.png" :image-width "34" :image-height "34")))))
 
 (defwidget workspaces0 []
   (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
@@ -164,22 +164,22 @@
 ;;							Window Section's							 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defwindow bar_0
+(defwindow bar_0 [width]
 	:geometry (geometry :x "0%"
 						:y "10px"
 						:anchor "top center"
 						:height "30px"
-						:width "98%")
+						:width width)
     :stacking "fg"
     :exclusive true
 	(bar))
 
-(defwindow bar_1
+(defwindow bar_1 [width]
 	:geometry (geometry :x "0%"
 						:y "10px"
 						:anchor "top center"
 						:height "30px"
-						:width "98%")
+						:width width)
     :stacking "fg"
     :exclusive true
 	(bar1))

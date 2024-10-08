@@ -1,9 +1,9 @@
 #!/bin/bash
 
-status=$(nmcli g | grep -oE "disconnected")
+status=$(nmcli g | grep -oE "verbunden")
 essid=$(nmcli c | grep wlp2s0 | awk '{print ($1)}')
 
-if [ $status ] ; then
+if !$status ; then
     icon="󰤮"
     text=""
     col="#575268"
