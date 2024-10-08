@@ -4,3 +4,18 @@ import = [
 
 [env]
 TERM = "xterm-256color"
+
+[font]
+size = 12.0
+
+[font.offset]
+x = -1
+y =1
+
+[font.normal]
+family = "Apercu Mono Pro"
+style = "Regular"
+
+[font.bold]
+family = "Apercu Mono Pro"
+style = "Bold"
