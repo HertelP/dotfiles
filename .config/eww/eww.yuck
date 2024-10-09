@@ -8,7 +8,7 @@
 (defpoll COL_WLAN :interval "1m" "~/.config/eww/scripts/wifi.sh --COL")
 (defpoll ESSID_WLAN :interval "1m" "~/.config/eww/scripts/wifi.sh --ESSID")
 (defpoll WLAN_ICON :interval "1m" "~/.config/eww/scripts/wifi.sh --ICON")
-(defpoll clock_time :interval "5m" "date +\%H")
+(defpoll clock_time :interval "1m" "date +\%H")
 (defpoll clock_minute :interval "5s" "date +\%M")
 (defpoll clock_date :interval "10h" "date '+%d/%m'")
 (defpoll calendar_day :interval "20h" "date '+%d'")
