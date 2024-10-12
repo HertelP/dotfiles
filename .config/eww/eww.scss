@@ -10,15 +10,18 @@ $foreground: #a5b6cf;
 
 
 */
-//catppuccin colors
+//kanagawa colors
 $rosewater: #f5e0dc;
-$mauve: #cba6f7;
-$maroon: #e0b089;
-$green: #afbea2;
-$sky: #89dceb;
-$lavender: #b4befe;
-$magenta: #c296eb;
-$offwhite: #cdd6f4;
+$mauve: #957FB8;
+$maroon: #DCA561;
+$green: #98BB6C;
+$sky: #7E9CD8;
+$lavender: #938AA9;
+$red: #E46876;
+$offwhite: #DCD7BA;
+$yellow: #E6C384;
+$dark: #2A2A37;
+$background: #16161D; 
 
 *{
 	all: unset;
@@ -27,7 +30,7 @@ $offwhite: #cdd6f4;
 
 /** General **/
 .bar_class {
-    background-color: #0f0f17;
+    background-color: $background;
     border-radius: 16px;
 }
 .module {
@@ -37,10 +40,10 @@ $offwhite: #cdd6f4;
 
 /** tooltip!! **/
 tooltip.background {
-    background-color: #0f0f17;
+    background-color: $background;
     font-size: 18;
     border-radius: 10px;
-    color: #bfc9db;
+    color: $offwhite
 }
 
 tooltip label {
@@ -52,7 +55,7 @@ tooltip label {
 
 .clock_time_sep {
     font-size: 20;
-    color: #bfc9db;
+    color: $offwhite;
     margin: 0px 3px 1px 3px;
 }
 .clock_time_class, .clock_minute_class {
@@ -65,41 +68,32 @@ tooltip label {
 }
 .clock_minute_class {
     margin: 0px 20px 0px 0px;
-    color: #bfc9db;
+    color: $offwhite;
 }
 
 .clock_time_class {
-    color: #bfc9db;
+    color: $offwhite;
 }
 
 
 .membar {
-  color: $maroon;
-    background-color: #38384d;
-  border-radius: 10px;
+    color: $maroon;
+    background-color: $dark;
+    border-radius: 10px;
 }
 .batbar {
-  color: $green;
-  background-color: #38384d;
-  border-radius: 10px;
+    color: $green;
+    background-color: $dark;
+    border-radius: 10px;
 }
 .brightbar trough highlight {
-  background-image: linear-gradient(to right, #e4c9af 30%, #f2cdcd 50%, #e0b089 100% *50);
-  border-radius: 10px;
-}
-.volbar trough highlight {
-  background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+  background-image: linear-gradient(to right, #E6C384 30%, #DCA561 50%, #FF9E3B 100% *50);
   border-radius: 10px;
 }
 .volume_icon {
-	background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url('~/.config/eww/images/speaker.png');
-	background-position: center;
-	min-height: 30px;
-	min-width: 40px;
-	margin: 8px 10px 8px 10px;
-	border-radius: 10px;
+    font-size: 25;
+    color: $sky;
+    margin: 0px 25px 0px 15px;
 }
 
 /** WIFI **/
@@ -127,25 +121,25 @@ tooltip label {
 }
 .bright_icon {
     font-size: 25;
-    color: $rosewater;
+    color: $yellow;
     margin: 0px 18px 0px 10px;
 }
 
 
 .separ {
-    color: #3e424f;
+    color: $dark;
     font-weight: bold;
     font-size: 22px;
     margin: 2px 8px 0px 8px;
   }
 
 .mem_module {
-    background-color: #0f0f17;
+    background-color: $background;
 	border-radius: 16px;
     margin: 0px 10px 0px 3px;
 }
 .bat_module {
-    background-color: #0f0f17;
+    background-color: $background;
 	border-radius: 16px;
     margin: 6px 10px 6px 10px;
   }
@@ -153,8 +147,7 @@ tooltip label {
 
 scale trough {
   all: unset;
-  background-color: #22242b;
-  box-shadow: 0 2px 3px 2px #06060b;
+  background-color: $dark;
   border-radius: 16px;
   min-height: 10px;
   min-width: 70px;
@@ -167,31 +160,31 @@ scale trough {
   font-weight: normal;
   color: $offwhite;
   margin: 2px 0px 0px 0px;
-  background-color: #0f0f17;
+  background-color: $background
 }
 
 .workspace_btn {
   margin: 0px 8px 0px 8px;
-  background-color: #0f0f17;
+  background-color: $background;
 }
 
 //Arch
 .arch {
   font-size: 28px;
   margin: 2px 0px 0px 20px; 
-  color: $lavender;
+  color: $mauve;
 }
 // Calendar
 .cal {
-  background-color: #0f0f17;
-  font-family: FiraCode Nerd Font;
+  background-color: $background;
+  font-family: Apercu Mono Pro;
   font-size: 18px;
   font-weight: normal;
   border-radius: 20px;
 
 .cal-in {
     padding: 0px 10px 0px 10px;
-    color: #bfc9db;
+    color: $sky;
 
 .cal {
      &.highlight {
@@ -204,34 +197,34 @@ scale trough {
 }
 
 calender {
-    color: #bfc9db;
+    color: $sky;
 }
 calendar:selected {
-  color: #e0b089;
+  color: $red;
 }
 
 calendar.header {
-  color: #a1bdce;
+  color: $lavender;
   font-weight: bold;
 }
 
 calendar.button {
-  color: #afbea2;
+  color: $lavender;
 }
 
 calendar.highlight {
-  color: #a1bdce;
+  color: $lavender;
   font-weight: bold;
 }
 
 calendar:indeterminate {
-  color: #bfc9db;
+  color: $mauve;
 }
 
 
 // System tray
 .sys_sep {
-    color: #38384d;
+    color: $dark;
     font-size: 18;
     margin: 0px 10px 0px 10px;
 }
@@ -250,17 +243,17 @@ calendar:indeterminate {
     margin: 28px 30px 30px 26px;
 }
 .sys_win {
-    background-color: #0f0f17;
+    background-color: $background;
     border-radius: 20px;
 }
 .sys_bat {
   color: $green;
-  background-color: #38384d;
+  background-color: $dark;
   border-radius: 10px;
 }
 .sys_mem {
   color: $maroon;
-  background-color: #38384d;
+  background-color: $dark;
   border-radius: 10px;
 }
 .sys_icon_bat, .sys_text_bat {
@@ -280,7 +273,7 @@ calendar:indeterminate {
 
 //Audio tray
 .audio-box {
-    background-color: #0f0f17;
+    background-color: $background;
 	border-radius: 20px;
 }
 .speaker_icon {
@@ -295,19 +288,19 @@ calendar:indeterminate {
 }
 
 .speaker_text {
-	color: #a1bdce;
+	color: $sky;
 	font-size : 18px;
 	margin: 20px 10px 0px 0px;
 }
 
 .speaker_bar scale trough highlight {
 	all: unset;
-    background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+  background-image: linear-gradient(to right, #7FB4CA 30%, #7E9CD8 50%, #658594 100% *50);
 	border-radius: 24px;
 }
 .speaker_bar scale trough {
 	all: unset;
-	background-color: #232232;
+	background-color: $dark;
     box-shadow: 0 6px 5px 2px #06060b;
 	border-radius: 24px;
 	min-height: 14px;
@@ -316,31 +309,26 @@ calendar:indeterminate {
 }
 
 .mic_icon {
-	background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url('images/mic.png');
-	background-position: center;
-	min-height: 2px;
-	min-width: 40px;
-	margin: 15px 10px 20px 15px;
-	border-radius: 12px;
+    font-size: 30;
+    color: $sky;
+    margin: 0px 25px 0px 15px;
 }
 
 .mic_text {
-	color: #a1bdce;
+	color: $sky;
 	font-size : 18px;
 	margin: 0px 0px 0px 0px;
 }
 
 .mic_bar scale trough highlight {
 	all: unset;
-    background-image: linear-gradient(to right, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+    background-image: linear-gradient(to right, #7FB4CA 30%, #7E9CD8 50%, #658594 100% *50);
 	border-radius: 24px;
 }
 .mic_bar scale trough {
 	all: unset;
     box-shadow: 0 6px 5px 2px #06060b;
-	background-color: #232232;
+	background-color: $dark;
 	border-radius: 24px;
 	min-height: 13px;
 	min-width: 100px;
@@ -348,7 +336,7 @@ calendar:indeterminate {
 }
 
 .audio_sep {
-    color: #38384d;
+    color: $dark;
     font-size: 18;
 	margin : 0px 0px 0px 0px;
 }
@@ -364,3 +352,125 @@ calendar:indeterminate {
 .lock_icon, .lock_text {
     color: $maroon;
 }
+
+// Menu
+.menu_class {
+    background-color: $background;
+    border-radius: 16px;
+}
+.poweroff_icon_menu {
+    font-size: 23;
+    margin: 50px 25px 10px 20px;
+    color: $green;
+}
+.lock_icon_menu {
+    font-size: 25;
+    margin: 50px 25px 10px 26px;
+    color: $maroon;
+}
+.suspend_icon_menu {
+    font-size: 30;
+    margin: 50px 25px 10px 28px;
+    color: $mauve;
+}
+.exit_icon_menu {
+    font-size: 30;
+    margin: 50px 25px 10px 24px;
+    color: $red;
+}
+.reboot_icon_menu {
+    font-size: 23;
+    margin: 50px 25px 10px 18px;
+    color: $sky;
+}
+.theme_icon_menu {
+    font-size: 23;
+    margin: 50px 25px 10px 18px;
+    color: $yellow;
+}
+.profile {
+  background: $background;
+  border-radius: 10px;
+}
+.profile_image {
+    border-radius: 100%;
+    margin: 60px 42px 0px 42px;
+	background-size: cover;
+    background-repeat: no-repeat;
+	background-position: top;
+    background-image: url("profile_kanagawa.jpg")
+}
+.profile_info {
+  margin: 50px 20px 20px  20px;
+}
+.user_info{
+  color: $red;
+  font-size: 40px;
+}
+.arch_info{
+  color: $maroon;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+// weather
+.iconweather {
+	font-family: Apercu Mono Pro;
+	font-size : 90px;
+	font-weight : normal;
+	margin : 15px 0px 0px 30px;
+}
+
+.label_temp {
+	color : $sky;
+	font-size : 70px;
+	margin : 15px 30px 0px 0px;
+}
+
+.label_stat {
+	color : $maroon;
+	font-size : 38px;
+}
+
+.label_quote {
+	color : $offwhite;
+	font-size : 18px;
+	font-weight : normal;
+}
+//uptime
+.icontimer {
+	color: $mauve;
+	font-size : 90px;
+	font-weight : normal;
+}
+
+.uphour {
+	color: $offwhite;
+    margin-top: 40px;
+	font-size : 42px;
+}
+
+.upmin {
+	color: $offwhite;
+	font-size : 32px;
+}
+
+//date
+.time_hour, .time_min {
+	color: $sky;
+	font-size : 70px;
+}
+.time_hour {
+	margin : 15px 0px 0px 100px;
+}
+.time_min {
+	margin : 15px 0px 0px 0px;
+}
+
+.time_day {
+	color: $yellow;
+	font-size : 30px;
+	font-weight : normal;
+	margin : 30px 0px 0px 0px;
+}
+

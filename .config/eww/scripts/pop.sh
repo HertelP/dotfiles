@@ -61,6 +61,10 @@ LOCK_FILE_SIDE="$HOME/.cache/eww-sidebar.lock"
 
 run() {
     eww -c $HOME/.config/eww open --screen "$monitor" sidebar 
+    eww -c $HOME/.config/eww open --screen "$monitor" weather 
+    eww -c $HOME/.config/eww open --screen "$monitor" timer 
+    eww -c $HOME/.config/eww open --screen "$monitor" search 
+    eww -c $HOME/.config/eww open --screen "$monitor" options 
 }
 
 # Open widgets
@@ -70,6 +74,10 @@ if [[ ! -f "$LOCK_FILE_SIDE" ]]; then
     run && echo "ok good!"
 else
     eww -c $HOME/.config/eww close sidebar 
+    eww -c $HOME/.config/eww close weather 
+    eww -c $HOME/.config/eww close timer 
+    eww -c $HOME/.config/eww close search 
+    eww -c $HOME/.config/eww close options 
     rm "$LOCK_FILE_SIDE" && echo "closed"
 fi
 }
@@ -77,5 +85,9 @@ fi
 hyprlock(){
     hyprlock
     eww -c $HOME/.config/eww close sidebar 
+    eww -c $HOME/.config/eww close weather 
+    eww -c $HOME/.config/eww close timer 
+    eww -c $HOME/.config/eww close search 
+    eww -c $HOME/.config/eww close options 
 }
 "$@"

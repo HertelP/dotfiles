@@ -11,4 +11,5 @@ alias v='nvim'
 alias sc_start='~/.config/scripts/suitcase_fullstack_start.sh'
 alias bar_reload='~/.config/scripts/reload_bar.sh'
 neofetch
+set -o vi
 eval "$(zoxide init --cmd cd zsh)"

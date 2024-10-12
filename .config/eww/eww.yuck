@@ -18,6 +18,21 @@
 (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
 (deflisten workspace "hyprland-workspaces `hyprctl monitors -j | jq -r \".[0].name\"`")
 (deflisten workspace1 "hyprland-workspaces `hyprctl monitors -j | jq -r \".[1].name\"`")
+(defpoll user :interval "10h" "whoami")
+
+(defpoll MER :interval "5s" `date +\"%p\"`)
+(defpoll DAY :interval "5s" `date +\"%A\"`)
+;;weather
+(defpoll ICON :interval "15m" `~/.config/eww/scripts/weather.sh --icon`)
+(defpoll STAT :interval "15m" `~/.config/eww/scripts/weather.sh --stat`)
+(defpoll TEMP :interval "15m" `~/.config/eww/scripts/weather.sh --temp`)
+(defpoll HEX :interval "15m" `~/.config/eww/scripts/weather.sh --hex`)
+(defpoll QUOTE :interval "15m" `~/.config/eww/scripts/weather.sh --quote`)
+(defpoll QUOTE2 :interval "15m" `~/.config/eww/scripts/weather.sh --quote2`)
+
+;;uptime
+(defpoll UPHOUR :interval "5s" `uptime -p | awk '{print $2 \" \" $3}' | sed 's/,//g'`)
+(defpoll UPMIN :interval "5s" `uptime -p | awk '{print $4 \" \" $5}'`)
 
 (defvar wifi_rev false)
 (defvar time_rev false)
@@ -102,7 +117,7 @@
   (eventbox :onhover "eww update vol_reveal=true"
 			  :onhoverlost "eww update vol_reveal=false"
   (box :class "module-2" :space-evenly "false" :orientation "h" :spacing "3" 
-	(button :onclick "scripts/pop.sh audio" :class "volume_icon" (image :path "images/speaker.png" :image-width "34" :image-height "34")))))
+	(button :onclick "scripts/pop.sh audio" :class "volume_icon" ""))))
 
 (defwidget workspaces0 []
   (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
@@ -204,7 +219,7 @@
 (defwidget audio []
 	(box :class "audio-box" :orientation "v" :space-evenly "false" :vexpand "false" :hexpand "false"
 	(box :halign "start" :space-evenly "false" :hexpand "false" :vexpand "false"
-	(box :class "speaker_icon")
+	(box :class "volume_icon" "")
 	(box :orientation "v" :halign "center" :vexpand "false" :hexpand "false"
     (label :class "speaker_text" :text "speaker" :valign "center" :halign "start" )
 	(box :class "speaker_bar" :halign "start" :vexpand "false" :hexpand "false"
@@ -216,7 +231,7 @@
 			  :min 0))))
     (label :text "" :class "audio_sep" :halign "center")
 	(box :halign "start" :space-evenly "false" :hexpand "false" :vexpand "false"
-	(box :class "mic_icon" :orientation "v")
+	(box :class "mic_icon" "")
 	(box :orientation "v" :halign "start" :vexpand "false" :hexpand "false"
     (label :class "mic_text" :text "mic" :valign "center" :halign "start" )
 	(box :class "mic_bar" :halign "center" :vexpand "false" :hexpand "false"
@@ -301,22 +316,111 @@
 ;;							Leftbar Section's							     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defwidget sidebar []
-  (box :class "sys_win" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 0
-  (box :class "sys_bat_box" :orientation "h" :space-evenly "false"
-            (button :class "poweroff_icon"
+  (box :class "profile" :orientation "v"
+        (label :class "profile_image")
+        (box :class "profile_info" :orientation "v" :space-evenly "false"
+         (label :class "user_info" :text user)
+            (label :class "arch_info" :text "ArchLinux")
+        )
+  )
+)
+
+(defwidget weather []
+  (box :class "menu_class" 
+		(box :orientation "v" :spacing 10 :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(box :orientation "h" :vexpand "false" :hexpand "false" 
+				(label :class "iconweather" :halign "start" :style "color: ${HEX};" :text ICON)
+				(label :class "label_temp" :halign "end" :text TEMP))
+			(box :orientation "v" :spacing 10 :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "label_stat" :text STAT)
+				(label :class "label_quote" :text QUOTE)
+				(label :class "label_quote" :text QUOTE2))))
+)
+(defwidget timer []
+  (box :class "profile" :orientation "v"
+  )
+)
+(defwidget search []
+  (box :class "profile" :orientation "v"
+  )
+)
+(defwidget options []
+    (box :class "menu_class" :orientation "h"
+        (box :class "menu_system" :orientation "v" :space-evenly "false"
+            (button :class "poweroff_icon_menu"
                 :onclick "poweroff"
                 "⏻")
-            (button :class "lock_icon"
+            (button :class "lock_icon_menu"
                 :onclick "scripts/hyprlock_dispatcher.sh"
-                "󰍁"))
-            (box :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false")
+                "󰍁")
+            (button :class "suspend_icon_menu"
+                :onclick "hyprlock & systemctl suspend"
+                "󰤄")
+            (button :class "reboot_icon_menu"
+                :onclick "reboot"
+                "")
+            (button :class "exit_icon_menu"
+                :onclick "hyprctl dispatch exit"
+                "󰈆")
+            (button :class "theme_icon_menu"
+                :onclick ""
+                "")
+        )
     )
 )
 
+(defwidget uptime [] 
+	(box :class "menu_class" 
+		(box :orientation "h" :halign "center" :spacing 40 :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(label :class "icontimer" :valign "center" :text "")
+			(box :orientation "v" :valign "center" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "uphour" :halign "start" :wrap "true" :limit-width 25 :text UPHOUR)
+				(label :class "upmin" :halign "start" :wrap "true" :limit-width 25 :text UPMIN)))))
+(defwidget clock [] 
+	(box :class "menu_class" :orientation "h" :spacing 50 :space-evenly false :vexpand "false" :hexpand "false" 
+		(box :orientation "h" :spacing 0 :space-evenly false
+			(label :class "time_hour" :valign "center" :text clock_time)
+            (label :text ":" :class "time_min" )
+			(label :class "time_min" :text clock_minute))
+		(box :orientation "v" :spacing 0 
+			(label :class "time_day" :valign "center" :halign "end" :wrap "true" :limit-width 25 :text DAY))))
+
 (defwindow sidebar
-	:geometry (geometry :x "20px" 
-						:y "2%" 
+	:geometry (geometry :x "25%" 
+						:y "20%" 
                         :anchor "top left"
-						:width "390px" 
-						:height "120px")
+						:width "14.5%" 
+						:height "44.5%")
 (sidebar))
+
+(defwindow weather
+	:geometry (geometry :x "40%" 
+						:y "20%" 
+                        :anchor "top left"
+						:width "25%" 
+						:height "24.5%")
+(weather))
+
+(defwindow timer
+	:geometry (geometry :x "40%" 
+						:y "45%" 
+                        :anchor "top left"
+						:width "25%" 
+						:height "19.5%")
+(uptime))
+
+(defwindow search
+	:geometry (geometry :x "25%" 
+						:y "65%" 
+                        :anchor "top left"
+						:width "40%" 
+						:height "10%")
+(clock))
+
+(defwindow options
+	:geometry (geometry :x "65.5%" 
+						:y "20%" 
+                        :anchor "top left"
+						:width "4%" 
+						:height "55.1%")
+(options))
