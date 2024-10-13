@@ -23,6 +23,7 @@
 (defpoll MER :interval "5s" `date +\"%p\"`)
 (defpoll DAY :interval "5s" `date +\"%A\"`)
 ;;weather
+(defpoll :interval "15m" `~/.config/eww/scripts/weather.sh --getdata`)
 (defpoll ICON :interval "15m" `~/.config/eww/scripts/weather.sh --icon`)
 (defpoll STAT :interval "15m" `~/.config/eww/scripts/weather.sh --stat`)
 (defpoll TEMP :interval "15m" `~/.config/eww/scripts/weather.sh --temp`)
