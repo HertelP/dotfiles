@@ -80,7 +80,6 @@ else
     eww -c $HOME/.config/eww close options 
     rm "$LOCK_FILE_SIDE" && echo "closed"
 fi
-source $HOME/.config/eww/scripts/weather.sh --getdata
 }
 
 hyprlock(){
