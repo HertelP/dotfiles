@@ -60,7 +60,6 @@ sidebar() {
 LOCK_FILE_SIDE="$HOME/.cache/eww-sidebar.lock"
 
 run() {
-    source $HOME/.config/eww/scripts/weather.sh --getdata
     eww -c $HOME/.config/eww open --screen "$monitor" sidebar 
     eww -c $HOME/.config/eww open --screen "$monitor" weather 
     eww -c $HOME/.config/eww open --screen "$monitor" timer 
@@ -81,6 +80,7 @@ else
     eww -c $HOME/.config/eww close options 
     rm "$LOCK_FILE_SIDE" && echo "closed"
 fi
+source $HOME/.config/eww/scripts/weather.sh --getdata
 }
 
 hyprlock(){
