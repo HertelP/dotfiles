@@ -23,12 +23,12 @@
 (defpoll MER :interval "5s" `date +\"%p\"`)
 (defpoll DAY :interval "5s" `date +\"%A\"`)
 ;;weather
-(defpoll ICON :interval "10m" `~/.config/eww/scripts/weather.sh --icon`)
-(defpoll STAT :interval "10m" `~/.config/eww/scripts/weather.sh --stat`)
-(defpoll TEMP :interval "10m" `~/.config/eww/scripts/weather.sh --temp`)
-(defpoll HEX :interval "10m" `~/.config/eww/scripts/weather.sh --hex`)
-(defpoll QUOTE :interval "10m" `~/.config/eww/scripts/weather.sh --quote`)
-(defpoll QUOTE2 :interval "10m" `~/.config/eww/scripts/weather.sh --quote2`)
+(defpoll ICON :interval "5m" `~/.config/eww/scripts/weather.sh --icon`)
+(defpoll STAT :interval "5m" `~/.config/eww/scripts/weather.sh --stat`)
+(defpoll TEMP :interval "5m" `~/.config/eww/scripts/weather.sh --temp`)
+(defpoll HEX :interval "5m" `~/.config/eww/scripts/weather.sh --hex`)
+(defpoll QUOTE :interval "5m" `~/.config/eww/scripts/weather.sh --quote`)
+(defpoll QUOTE2 :interval "5m" `~/.config/eww/scripts/weather.sh --quote2`)
 
 ;;uptime
 (defpoll UPHOUR :interval "5s" `uptime -p | awk '{print $2 \" \" $3}' | sed 's/,//g'`)
@@ -332,7 +332,7 @@
 				(label :class "iconweather" :halign "start" :style "color: ${HEX};" :text ICON)
 				(label :class "label_temp" :halign "end" :text TEMP))
 			(box :orientation "v" :spacing 10 :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :class "label_stat" :text STAT)
+				(button :class "label_stat" :onclick "scripts/weather.sh --getdata" STAT)
 				(label :class "label_quote" :text QUOTE)
 				(label :class "label_quote" :text QUOTE2))))
 )
